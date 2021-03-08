@@ -38,7 +38,8 @@
 %%
 %% ctex will call xeCJK.
 \usepackage{metalogo} % Need the package for LuaTeX/LuaLaTeX logo.
-\usepackage[UTF8, nofonts, fancyhdr]{ctex}
+\usepackage{fancyhdr}
+\usepackage[UTF8, fontset=none]{ctex}
 %%
 %% Configure math fonts before we use package fontspec, so we can
 %% avoid influencing math settings when enble fontspec package.
@@ -137,7 +138,7 @@
 \geometry{screen}
 \hypersetup{
   colorlinks=true,
-  bookmarks=true,
+%  bookmarks=true,
   bookmarksopen=true,
 %  pdfpagemode=FullScreen,
   pdfstartview=Fit,
@@ -152,7 +153,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% The following package will add the content itself and reference to
 %% the content list.
-\usepackage[]{tocbibind}
+\usepackage{tocbibind}
 %% You can configure contens style by one of the following packages.
 % \usepackage{tocloft} % Simpler than the titletoc
 % \usepackage{titletoc}

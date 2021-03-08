@@ -60,6 +60,7 @@ install:
 	[ -d $(BUILD_DIR) ] && \
 	[ -e $(BUILD_DIR)/$(PDF_FILE) ] && \
 	@INSTALL@ $(BUILD_DIR)/$(PDF_FILE) $(INSTALL_DIR)
+	@chmod ugo-x $(INSTALL_DIR)/$(PDF_FILE)
 PYHONY += install
 
 uninstall:
@@ -72,6 +73,7 @@ check:
 	[ -d $(BUILD_DIR)/../tests ] && [ -d $(BUILD_DIR)/test ] && \
 	cd $(BUILD_DIR)/../tests; \
 	for test in *.test;do \
+	  chmod u+x $test; \
 	  $(TEST_DRIVER) \
 	    --test-name "@PACKAGE_TARNAME@" \
             --log-file $(BUILD_DIR)/test/$${test}.log \
