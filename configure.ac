@@ -78,11 +78,7 @@ AC_MSG_WARN([could not find any checksum command])
 )
 AC_SUBST([CHECKSUM])
 
-dnl To run the test script, we need perl and python.
-dnl We test perl and python just as we use them.
-AC_CHECK_PROG([PERL_EXISTED], [perl], [ok], [failed])
-AS_IF([test "$PERL_EXISTED" = "failed"],
-AC_MSG_ERROR([Need perl to run the test script]))
+dnl To run the test script, we need python.
 AC_CHECK_PROG([PYTHON3_EXISTED], [python3], [ok], [failed])
 AC_CHECK_PROG([PYTHON2_EXISTED], [python2.7], [ok], [failed])
 AS_IF([test "$PYTHON2_EXISTED" = "failed" && test "$PYTHON3_EXISTED" = "failed" ],
@@ -117,24 +113,6 @@ AC_MSG_ERROR([Cannot run the test script because of no required python pyPdf mod
 ])
 
 AC_SUBST([PYTHON])
-
-AS_IF([test "$PERL_EXISTED" = "ok"],
-[AC_MSG_CHECKING([perl module for test script])
-AC_PATH_PROGS_FEATURE_CHECK([PERL_MODULES_EXISTED], [perl],
-[
-{
-  perl -c "${srcdir}/build-aux/tap-driver.pl" 2>/dev/null >/dev/null && \
-    ac_cv_path_PERL_MODULES_EXISTED=1 || \
-    perl -c "${srcdir}/build-aux/tap-driver.pl"
-}
-]
-)
-dnl We use perl -c to check the tap-driver.pl script. We try to sliently
-dnl do the checking, while if fail, we will make loud noise.
-AS_IF([test "$ac_cv_path_PERL_MODULES_EXISTED" = "1"], AS_ECHO([ok]),
-AS_ECHO([bad])
-AC_MSG_WARN([Cannot run the test script because of no required perl modules]))
-])
 
 AC_LUALATEX_CHECK_PROG([lualatex])
 AC_LUALATEX_CHECK_PROG([bibtex])

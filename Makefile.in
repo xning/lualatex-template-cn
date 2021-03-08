@@ -11,7 +11,7 @@ TEX_FILE = @PACKAGE_TARNAME@.tex
 ABS_TEX_FILE = $(BUILD_DIR)/../$(TEX_FILE)
 DIST_NAME = @PACKAGE_TARNAME@
 VERSION = @PACKAGE_VERSION@
-TEST_DRIVER = $(SOURCE_DIR)/build-aux/tap-driver.pl
+TEST_DRIVER = $(SOURCE_DIR)/build-aux/tap-driver.sh
 DIST_FILES := $(SOURCE_DIR)/*.in
 DIST_FILES += $(SOURCE_DIR)/pics
 DIST_FILES += $(SOURCE_DIR)/*.bib
@@ -66,18 +66,20 @@ uninstall:
 	@MAKE_DEBUG@rm -f $(INSTALL_DIR)/$(PDF_FILE)
 PHONY+=uninstall
 
+# no -- arg will cause issue: tap-driver.sh: missing test command
 check:
 	@MAKE_DEBUG@[ -d $(BUILD_DIR)/test ] || @MKDIR_P@ $(BUILD_DIR)/test;\
 	[ -d $(BUILD_DIR)/../tests ] && [ -d $(BUILD_DIR)/test ] && \
 	cd $(BUILD_DIR)/../tests; \
 	for test in *.test;do \
 	  $(TEST_DRIVER) \
-	    --test-name=@PACKAGE_TARNAME@ \
-            --log-file=$(BUILD_DIR)/test/$${test}.log \
-            --trs-file=$(BUILD_DIR)/test/$${test}.trs \
-	    --color-tests=yes \
+	    --test-name "@PACKAGE_TARNAME@" \
+            --log-file $(BUILD_DIR)/test/$${test}.log \
+            --trs-file $(BUILD_DIR)/test/$${test}.trs \
+	    --color-tests yes \
 	    --comments \
 	    --merge \
+	    -- \
 	    ./$${test}; \
 	done || :
 PHONY+=check
