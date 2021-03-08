@@ -1,0 +1,287 @@
+%Coding: utf8
+%%
+%% Author: anzhou94@gmail.com
+%% Date: Mon 08 Mar 2021 09:36:36 AM CST
+%% Version: 0.0.1
+%% License: BSD
+%%
+%% This template is helpful to use lualatex to produce a PDF format
+%% electric book. It is useful if need support Chinses.
+%%
+%% The tmeplate is a demo while it works well.  So we can use Lua
+%% in TeX to extend TeX.
+%%
+%% Most of the following packages need compile the input tex files
+%% more than once, because some auxiliary tools need auxiliary files
+%% that produced after the first compiling.
+%%
+\documentclass{article}
+%%
+%%%%%%%%%%%%%%%%%%%%
+%% 0. Debug/Trace %%
+%%%%%%%%%%%%%%%%%%%%
+%% If you need time to coffee, just uncomment the following line
+%% and traceon some lines. :)
+%\usepackage{trace}
+%%
+%% Follow rpmbuild style, we always try to give more building infos.
+\listfiles
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 1. Chinses Supporting %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% To support Chinese, you can use the package ctex package. And
+%% need add and set Chinese fonts.
+%% On UNIX platforms we need add Chinses fonts first, that's why we add
+%% nofonts option.
+%% It is obvious that only a few of free serif Chinses fonts.
+%%
+%% ctex will call xeCJK.
+\usepackage{metalogo} % Need the package for LuaTeX/LuaLaTeX logo.
+\usepackage[UTF8, nofonts, fancyhdr]{ctex}
+%%
+%% Configure math fonts before we use package fontspec, so we can
+%% avoid influencing math settings when enble fontspec package.
+\usepackage{amsmath}
+\usepackage[math-style=TeX]{unicode-math}
+\setmathfont{Asana-Math.otf}
+%%
+\usepackage{fontspec}
+%% It is said that, on PC, to use sans serif fonts is better than
+%% to use sans fonts, so we do not need add AR PL UMing CN font
+%% if you are not desired.
+%%
+%% The following fonts need package.
+%% They are here
+%% https://github.com/adobe-fonts/source-code-pro
+%% http://developer.android.com/design/style/typography.html
+%% For WenQuanYi, pls visit here
+%% http://wenq.org/cloud/fcdesigner.html
+%% For Droid Sans, pls start from here
+%% http://en.wikipedia.org/wiki/Droid_fonts
+%%
+%% The Free Chinese Fonts
+%% http://www.freechinesefont.com
+%%
+%% Because xeCJK has the following configure:
+%% \defaultCJKfontfeatures{Script=CJK}
+%% So, you may notice some error msgs like this
+%% * fontspec warning: "script-not-exist-latn"
+%% *
+%% * Font 'WenQuanYi Micro Hei' does not contain script 'CJK'.
+%% * 'Latin' script used instead.
+%% That's OK, just skip these error msgs.
+%%
+%% To explain what is a font script. You can visit here
+%% http://en.wikipedia.org/wiki/OpenType#Script_tags
+%% The truetype has an extension that support script and language tags.
+%% And 'hani' express script CJK. You can check some font files
+%% as follows
+%% fc-list :lang=zh # To find font file
+%% showttf path_to_font_file # A lot of outputs, pls pipe it to a file.
+%% showttf path_to_font_file | grep 'Script\['
+%%
+%% Another perhaps warning, if you use WenQuanYi fonts, as follows
+%% ** WARNING ** TrueType post table name index 32768 > 32767
+%%
+%% This perhaps is lualatex or fontspec bug, I do not have enough time to
+%% study the truetype specifications.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 1.1 To Configure Fonts that You Like Here %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% It seems that we cannot check which fonts that we can use by
+%% Tex itself, perhaps that's why I prefer LuaTeX to XeTeX.
+%%
+%% The following are fonts that you can found on Fedora and Ubuntu.
+%% Sans-serif fonts/heiti or youti:
+%% WenQuanYi Zen Hei, WenQuanYi Micro Hei, Droid Sans Fallback
+%%
+%% Mono fonts:
+%% WenQuanYi Zen Hei Mono, WenQuanYi Micro Hei Mono
+%%
+%% Serif fonts/songti:
+%% WenQuanYi Zen Hei Sharp, AR PL UMing CN
+%%
+%% Kaishu fonts:
+%% AR PL UKai CN
+%%
+%% Use your fonts to replace the followings
+\newcommand\cjkseriffont{@SERIFFONT@}
+\newcommand\cjksansfont{@SANSFONT@}
+\newcommand\cjkmonofont{@MONOFONT@}
+\newcommand\cjkkaifont{@KAISUFONT@}
+%%
+\fontspec{\cjkseriffont}
+\fontspec{\cjksansfont}
+\fontspec{\cjkmonofont}
+\fontspec{\cjkkaifont}
+%%
+\setCJKmainfont{\cjkseriffont}
+\setCJKsansfont{\cjksansfont}
+\setCJKmonofont{\cjkmonofont}
+%%
+\newCJKfontfamily[song]\songti{\cjkseriffont}
+\newCJKfontfamily[hei]\heiti{\cjksansfont}
+\newCJKfontfamily[kai]\kaiti{\cjkkaifont}
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2. Hyperlinks Settings %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Most of time, we just want a PDF, so hyperlinks among contents and to
+%% the Internet will be useful. While to support Chinses, to avoid
+%% encoding problems, it is better to enable hyperref with xecte
+\usepackage[unicode, pdfencoding=auto, backref]{hyperref}
+\usepackage{geometry}
+\geometry{screen}
+\hypersetup{
+  colorlinks=true,
+  bookmarks=true,
+  bookmarksopen=true,
+%  pdfpagemode=FullScreen,
+  pdfstartview=Fit,
+  pdftitle={@PACKAGE_NAME@},
+  pdfauthor={@PACKAGE_BUGREPORT@},
+  pdfkeywords={@PDF_KEYWORDS@},
+  pdfsubject={@PDF_SUBJECT@}
+}
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 3. Content Tables Settings %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The following package will add the content itself and reference to
+%% the content list.
+\usepackage[]{tocbibind}
+%% You can configure contens style by one of the following packages.
+% \usepackage{tocloft} % Simpler than the titletoc
+% \usepackage{titletoc}
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 4. Individually Compiling %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% While we plan to compile each, f.g., chapter individually, we need
+%% these chapters could reference to each other. So add the following
+%% package
+\usepackage{xr}
+%%
+%%%%%%%%%%%%%%%%%%%%%
+%% 5. Bibliography %%
+%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{alpha}
+%%
+%%%%%%%%%%%%%%%%
+%% 5. Indexes %%
+%%%%%%%%%%%%%%%%
+%\usepackage{imakeidx} % If need support multi-indxes uncomment this line.
+\usepackage{makeidx}
+\makeindex
+%%
+%%%%%%%%%%%%%%%%%
+%% 6. Glossary %%
+%%%%%%%%%%%%%%%%%
+%% We need some options to enable Glossary entry in the Contents.
+\usepackage[toc, section=section]{glossaries}
+\makeglossaries
+%%
+%%%%%%%%%%%%%%%%%%%%%%
+%% 6. Miscellaneous %%
+%%%%%%%%%%%%%%%%%%%%%%
+%% The package will give use a label to the last page.
+\usepackage{lastpage}
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{asymptote}
+\usepackage{animate}
+%%
+%%%%%%%%%%%%%
+%% 7. Main %%
+%%%%%%%%%%%%%
+\begin{document}
+\tableofcontents
+\listoffigures
+\listoftables
+%%
+\section{Why this template}
+Just like the first process, whose PID is 1, was created manually, then
+all the other processses, they fork from the first one, are children of
+that process. We tried the template the first one. Then we can fork the
+template, simple modify and create our need documents.\par
+We need the template support all the features that we need.
+\subsection{Chinese Support}
+It{\rq}s obvious that we need support the Chinese for so many people can
+speak and only can speak the Chinese.\marginpar{Do not you believe it?}\par
+Let{\rq}s try it.\par
+\begin{center}
+曾慮多情損梵行，\par
+入山又恐別傾城。\par
+世間安得雙全法，\par
+不負如來不負卿。\par
+\end{center}\par
+And another poem.\par
+\begin{center}
+桂靄桐陰坐舉觴，長安涎口盼重陽。\par
+眼前道路無經緯，皮裏春秋空黑黃。\par
+酒未敵腥還用菊，性防積冷定須姜。\par
+於今落釜成何益，月浦空餘禾黍香。\par
+\end{center}
+\subsection{Inter-references}
+Shut up and just do as what I said!
+\subsection{Bibliograhpy}
+Shut up and just do as what I said!
+\subsection{Index}
+Shut up and just do as what I said!
+\subsection{Glossary}
+Shut up and just do as what I said!
+\section{How to use this template}
+This section will need more time, are you sure to read it now?
+\subsection{Tools and fonts}
+We need \LuaLaTeX\footnote{\href{http://en.wikipedia.org/wiki/LuaTeX}{OK, we use the {\LuaLaTeX} tool.}} and
+the Chinese fonts\footnote{\href{http://www.freechinesefont.com/}{Free Chinese Font}}.
+\subsection{Try Inter-references}
+Let{\rq} try the feature, see \cite{leslie1994latex}.
+\subsection{Try indexes}
+Who is anzhou94{\index{anzhou94}}, why does he like mathmatics{\index{mathmatics}}?
+\subsection{Try glossaries}
+\newglossaryentry{redhat}{
+  name=redhat,
+  description={A famous open-source OS vendor}
+  }
+The \gls{redhat} OS RHELs are powerful.
+\subsection{Try tables}
+Let{\rq}s try a table.
+\begin{table}\centering
+  \caption{Famous Editors}
+\begin{tabular}{|c|c|}\hline
+  Name & Description \\ \hline
+  Emacs & God{\rq}s Editior \\ \hline
+  Vi & Editors{\rq} God \\ \hline
+\end{tabular}
+\end{table}
+\subsection{Try pictures}
+OK, most of time you don{\rq}t use {\TeX} interactively, while we can.
+\begin{figure}\centering
+\includegraphics[scale=0.5]{@abs_srcdir@/pics/tex_inter.png}
+\caption{{\TeX} Interactive}
+\end{figure}
+\par
+Another picture.
+\begin{figure}\centering
+\begin{asy}
+  real r = 0.8cm;
+  for (int i = 0; i < 360; i+=10)
+    draw(circle(dir(i) * r, r));
+\end{asy}
+\caption{Asymptote pic}
+\end{figure}
+\section{Known problems}
+\subsection{The hyperref not work when there{\rq}re some Chinese characters in the URL.}
+I do not know why, while I think this is not difficult problem.
+\appendix
+\section{Try appendix}
+Shut up and do what I said!
+\bibliography{@abs_srcdir@/jabref}
+\printindex
+\printglossaries
+\end{document}

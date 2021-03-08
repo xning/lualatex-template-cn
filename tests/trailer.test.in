@@ -1,0 +1,150 @@
+#!/usr/bin/env @PYTHON@
+"""
+No time to design these tests. While perhaps metaprogramming is
+required, or use autoconf m4 macros to do something to produce
+the tests. Anywhile
+"""
+import os
+import sys
+try:
+    import pyPdf
+except ImportError:
+    from PyPDF2 import pdf as pyPdf
+
+class TrailerTest(object):
+    # The builddir is add a suffix '/tests', so we need to remove it.
+    dir = "@abs_builddir@/../build"
+    file = "@PACKAGE_TARNAME@.pdf"
+    fail = False
+    total_test_number = 9
+
+    @staticmethod
+    def try_to_chdir(path, seq=None):
+        global fail
+        if seq is None:
+            seq = 1
+        try:
+            os.chdir(path)
+            print("ok {seq:d} - Successful to get in build dir '{path:s}'".format(seq = seq, path = path))
+        except:
+            fail = True
+            print("not ok {seq:d} - failed to get in build dir '{path:s}'".format(seq = seq, path = path))
+            print("Bail out!")
+
+    @staticmethod
+    def is_file_existed(path, seq=None):
+        global fail
+        if seq is None:
+            seq = 1
+
+        if os.path.exists(path) and os.path.isfile(path):
+            print("ok {seq:d} - File '{path:s}' found".format(seq = seq, path = path))
+        else:
+            fail = True
+            print("not ok {seq:d} - File '{path:s}' not found".format(seq = seq, path = path))
+
+    @staticmethod
+    def try_to_open_file(path, seq=None):
+        global fail
+        if seq is None:
+            seq = 1
+
+        try:
+            f = open(path, "rb")
+            print("ok {seq:d} - Successful to open file '{path:s}'".format(seq = seq, path = path))
+            return f
+        except:
+            fail = True
+            print("not ok {seq:d} - Failed to open file '{path:s}'".format(seq = seq, path = path))
+            print("Bail out!")
+            return None
+
+    @staticmethod
+    def try_to_get_pdf_reader(file_stream, seq=None):
+        global fail
+        if seq is None:
+            seq = 1
+
+        try:
+            r = pyPdf.PdfFileReader(file_stream)
+            print("ok {seq:d} - Successful to get a PDF Reader".format(seq = seq))
+            return r
+        except:
+            fail = True
+            print("not ok {seq:d} - Failed to get PDF Reader".format(seq = seq))
+            print("Bail out!")
+
+    @staticmethod
+    def check_the_trailer(trailer, seq=None):
+        global fail
+        if seq is None:
+            seq = 1
+
+        trailer_keys = trailer.keys()
+        if "/Info" in trailer_keys and "/Root" in trailer_keys:
+            print("ok {seq:d} - Successful to find keys /Root and /Info".format(seq = seq))
+        else:
+            fail = True
+            print("not ok {seq:d} - Failed to find keys /Root and /Info".format(seq = seq))
+            print("Bail out!")
+
+        seq += 1
+
+        pdf_info_obj = trailer.get("/Info").getObject()
+        if isinstance(pdf_info_obj, pyPdf.IndirectObject):
+            pass
+
+        keys = pdf_info_obj.keys()
+        if "/Author" in keys:
+            if pdf_info_obj.get("/Author") == "@PACKAGE_BUGREPORT@":
+                print("ok {seq:d} - Successful to verify the PDF file author(s)".format(seq = seq))
+            else:
+                fail = True
+                print("not ok {seq:d} - Failed to verify the PDF file author(s)".format(seq = seq))
+
+            seq += 1
+
+        if "/Title" in keys:
+            if pdf_info_obj.get("/Title") == "@PACKAGE_NAME@":
+                print("ok {seq:d} - Successful to verify the PDF file title".format(seq = seq))
+            else:
+                fail = True
+                print("ok {seq:d} - Failed to verify the PDF file title".format(seq = seq))
+            seq += 1
+
+        if "/Subject" in keys:
+            if pdf_info_obj.get("/Subject") == "@PDF_SUBJECT@":
+                print("ok {seq:d} - Successful to verify the PDF file subject".format(seq = seq))
+            else:
+                fail = True
+                print("ok {seq:d} - Failed to verify the PDF file subject".format(seq = seq))
+
+            seq += 1
+
+        if "/Keywords" in keys:
+            keywords="@PDF_KEYWORDS@"
+            if pdf_info_obj.get("/Keywords") == keywords:
+                print("ok {seq:d} - Successful to verify the PDF file keywords".format(seq = seq))
+            else:
+                fail = True
+                print("ok {seq:d} - Failed to verify the PDF file keywords".format(seq = seq))
+
+            seq += 1
+
+if __name__ == "__main__":
+    print("1..{plan_test_num}".format(plan_test_num = TrailerTest.total_test_number))
+    TrailerTest.try_to_chdir(TrailerTest.dir, 1)
+    TrailerTest.is_file_existed(TrailerTest.file, 2)
+    pdf_file_stream = TrailerTest.try_to_open_file(TrailerTest.file, 3)
+    pdf_file_reader = TrailerTest.try_to_get_pdf_reader(pdf_file_stream, 4)
+    TrailerTest.check_the_trailer(pdf_file_reader.trailer, 5)
+
+    try:
+        pdf_file_stream.close()
+    except:
+        pass
+
+    if TrailerTest.fail:
+        sys.exit(1)
+    else:
+        sys.exit(0)

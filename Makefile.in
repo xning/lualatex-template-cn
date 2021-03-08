@@ -1,0 +1,97 @@
+@SET_MAKE@
+TEX_FILE_NAME = @PACKAGE_TARNAME@
+PDF_FILE = @PACKAGE_TARNAME@.pdf
+# It is too complicated manage TeX produces files when compiling the source
+# so we always use a subdirctory under the build dir for LuaLaTeX to build
+# PDF file and auxiliary files.
+BUILD_DIR = @abs_builddir@/build
+SOURCE_DIR = @abs_srcdir@
+INSTALL_DIR = @abs_builddir@
+TEX_FILE = @PACKAGE_TARNAME@.tex
+ABS_TEX_FILE = $(BUILD_DIR)/../$(TEX_FILE)
+DIST_NAME = @PACKAGE_TARNAME@
+VERSION = @PACKAGE_VERSION@
+TEST_DRIVER = $(SOURCE_DIR)/build-aux/tap-driver.pl
+DIST_FILES := $(SOURCE_DIR)/*.in
+DIST_FILES += $(SOURCE_DIR)/pics
+DIST_FILES += $(SOURCE_DIR)/*.bib
+DIST_FILES += $(SOURCE_DIR)/build-aux
+DIST_FILES += $(SOURCE_DIR)/configure.ac
+DIST_FILES += $(SOURCE_DIR)/configure
+DIST_FILES += $(SOURCE_DIR)/tests
+CLEAN_FILES = $(DIST_NAME)-$(VERSION).tar.bz2 *.tex tests/*.test *.@CHECKSUM@
+CLEAN_FILES += *.cache *.log *.status configure Makefile
+
+all: pdf check
+PHONY := all
+pdf: $(TEX_FILE)
+	@MAKE_DEBUG@[ -d ${BUILD_DIR} ] || @MKDIR_P@ ${BUILD_DIR};\
+	cd $(BUILD_DIR);\
+	lualatex ../$(TEX_FILE);\
+	asy $(TEX_FILE_NAME)-*.asy;\
+	lualatex ../$(TEX_FILE);\
+	bibtex $(TEX_FILE_NAME);\
+	lualatex ../$(TEX_FILE);\
+	makeindex $(TEX_FILE_NAME)\
+	lualatex ../$(TEX_FILE);\
+	makeglossaries $(TEX_FILE_NAME);\
+	lualatex ../$(TEX_FILE);\
+	lualatex ../$(TEX_FILE);
+PHONY += pdf
+
+$(TEX_FILE):
+	@MAKE_DEBUG@$(SOURCE_DIR)/configure
+
+Makefile: ;
+newmakefile: Makefile.in configure
+	@MAKE_DEBUG@cd $(SOURCE_DIR);./configure
+
+configure Makefile.in: configure.ac
+	@MAKE_DEBUG@cd $(SOURCE_DIR);autoreconf
+PHONY += newmakeifle
+
+clean:
+	@MAKE_DEBUG@[ -d $(BUILD_DIR) ] && rm -rf $(BUILD_DIR) || :;\
+	cd $(BUILD_DIR)/../ && rm -rf $(CLEAN_FILES)
+PHONY += clean
+
+install:
+	@MAKE_DEBUG@[ -d $(INSTALL_DIR) ] && \
+	[ -d $(BUILD_DIR) ] && \
+	[ -e $(BUILD_DIR)/$(PDF_FILE) ] && \
+	@INSTALL@ $(BUILD_DIR)/$(PDF_FILE) $(INSTALL_DIR)
+PYHONY += install
+
+uninstall:
+	@MAKE_DEBUG@rm -f $(INSTALL_DIR)/$(PDF_FILE)
+PHONY+=uninstall
+
+check:
+	@MAKE_DEBUG@[ -d $(BUILD_DIR)/test ] || @MKDIR_P@ $(BUILD_DIR)/test;\
+	[ -d $(BUILD_DIR)/../tests ] && [ -d $(BUILD_DIR)/test ] && \
+	cd $(BUILD_DIR)/../tests; \
+	for test in *.test;do \
+	  $(TEST_DRIVER) \
+	    --test-name=@PACKAGE_TARNAME@ \
+            --log-file=$(BUILD_DIR)/test/$${test}.log \
+            --trs-file=$(BUILD_DIR)/test/$${test}.trs \
+	    --color-tests=yes \
+	    --comments \
+	    --merge \
+	    ./$${test}; \
+	done || :
+PHONY+=check
+
+dist: distcheck
+	@MAKE_DEBUG@@MKDIR_P@ $(DIST_NAME)-$(VERSION); \
+	cp -r $(DIST_FILES) $(DIST_NAME)-$(VERSION); \
+	@TAR@ cfj $(DIST_NAME)-$(VERSION).tar.bz2 $(DIST_NAME)-$(VERSION); \
+	@CHECKSUM@ $(DIST_NAME)-$(VERSION).tar.bz2 > $(DIST_NAME)-$(VERSION).@CHECKSUM@;\
+	rm -rf $(DIST_NAME)-$(VERSION);
+PYTHON+=dist
+
+distcheck: dist
+	@MAKE_DEBUG@@CHECKSUM@ -c $(DIST_NAME)-$(VERSION).@CHECKSUM@
+PHONY += distcheck
+
+.PHONY: ${PHONY}
