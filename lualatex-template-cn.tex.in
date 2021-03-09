@@ -54,7 +54,7 @@
 \usepackage[math-style=TeX]{unicode-math}
 \setmathfont{Asana-Math.otf}
 %%
-\iffalse
+
 \usepackage{fontspec}
 %% It is said that, on PC, to use sans serif fonts is better than
 %% to use sans fonts, so we do not need add AR PL UMing CN font
@@ -134,7 +134,7 @@
 \newCJKfontfamily[song]\songti{\cjkseriffont}
 \newCJKfontfamily[hei]\heiti{\cjksansfont}
 \newCJKfontfamily[kai]\kaiti{\cjkkaifont}
-\fi
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 2. Hyperlinks Settings %%
