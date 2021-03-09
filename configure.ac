@@ -2,7 +2,7 @@ AC_DEFUN([MIN_AUTOCONF_VERSION], [2.62])
 AC_DEFUN([PROJECT_VERSION], [0.01])
 AC_DEFUN([PROJECT_DESCRIPTION],
 [LuaLaTeX Template for the Chinese])
-AC_DEFUN([PROJECT_EMAIL], [anzhou94@gmail.com])
+AC_DEFUN([PROJECT_BUG_REPORT], [anzhou94@gmail.com])
 AC_DEFUN([PROJECT_NAME],
 [lualatex-template-cn])
 AC_DEFUN([PROJECT_URL],
@@ -38,13 +38,6 @@ dnl The varaible, uppercase of the font_type_name + FONT, will be set
 dnl to the first found font, or left to be empty.
 AC_DEFUN([AC_FONT_CHECK],
 [
-dnl We use the following command to check a font
-dnl fc-list -q font_name
-dnl So we need check fc-list command.
-AS_IF([test "x$FC_LIST" = "x"],
-AC_CHECK_PROG([FC_LIST], [fc-list], [ok], [failed]))
-AS_IF([test "$FC_LIST" = "failed"],
-AC_MSG_ERROR([could not find fc-list command]))
 AC_MSG_CHECKING([the Chinese font $1])
 {
 tmp_IFS_=$IFS
@@ -71,9 +64,9 @@ AC_MSG_ERROR([could not find $1 command]))
 AC_INIT(
 PROJECT_DESCRIPTION,
 PROJECT_VERSON,
-PROJECT_EMAIL,
+PROJECT_BUG_REPORT,
 PROJECT_NAME,
-PROJECT_EMAIL)
+PROJECT_URL)
 AC_COPYRIGHT(PROJECT_COPYRIGHT)
 AC_CONFIG_AUX_DIR([build-aux])
 AC_PROG_GREP
@@ -132,6 +125,14 @@ AC_SUBST([PYTHON])
 AC_LUALATEX_CHECK_PROG([lualatex])
 AC_LUALATEX_CHECK_PROG([bibtex])
 AC_LUALATEX_CHECK_PROG([makeglossaries])
+
+dnl We use the following command to check a font
+dnl fc-list -q font_name
+dnl So we need check fc-list command.
+AS_IF([test "x$FC_LIST" = "x"],
+AC_CHECK_PROG([FC_LIST], [fc-list], [ok], [failed]))
+AS_IF([test "$FC_LIST" = "failed"],
+AC_MSG_ERROR([could not find fc-list command]))
 
 dnl Need a smart solution for fonts checking and selecting.
 AC_MSG_NOTICE([the Chinese fonts])

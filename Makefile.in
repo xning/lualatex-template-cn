@@ -73,7 +73,7 @@ check:
 	[ -d $(BUILD_DIR)/../tests ] && [ -d $(BUILD_DIR)/test ] && \
 	cd $(BUILD_DIR)/../tests; \
 	for test in *.test;do \
-	  chmod u+x $test; \
+	  chmod u+x $$test; \
 	  $(TEST_DRIVER) \
 	    --test-name "@PACKAGE_TARNAME@" \
             --log-file $(BUILD_DIR)/test/$${test}.log \
@@ -84,6 +84,7 @@ check:
 	    -- \
 	    ./$${test}; \
 	done || :
+
 PHONY+=check
 
 dist: distcheck

@@ -39,7 +39,14 @@
 %% ctex will call xeCJK.
 \usepackage{metalogo} % Need the package for LuaTeX/LuaLaTeX logo.
 \usepackage{fancyhdr}
-\usepackage[UTF8, fontset=none]{ctex}
+%%
+\iftrue
+\usepackage[UTF8, fontset=none, scheme=chinese]{ctex}
+\else
+\usepackage[UTF8, scheme=chinese]{ctex}
+\fi
+%%
+
 %%
 %% Configure math fonts before we use package fontspec, so we can
 %% avoid influencing math settings when enble fontspec package.
@@ -47,6 +54,7 @@
 \usepackage[math-style=TeX]{unicode-math}
 \setmathfont{Asana-Math.otf}
 %%
+\iffalse
 \usepackage{fontspec}
 %% It is said that, on PC, to use sans serif fonts is better than
 %% to use sans fonts, so we do not need add AR PL UMing CN font
@@ -93,7 +101,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% It seems that we cannot check which fonts that we can use by
-%% Tex itself, perhaps that's why I prefer LuaTeX to XeTeX.
+%% XeTex itself, perhaps that's why I prefer LuaTeX to XeTeX.
 %%
 %% The following are fonts that you can found on Fedora and Ubuntu.
 %% Sans-serif fonts/heiti or youti:
@@ -126,6 +134,7 @@
 \newCJKfontfamily[song]\songti{\cjkseriffont}
 \newCJKfontfamily[hei]\heiti{\cjksansfont}
 \newCJKfontfamily[kai]\kaiti{\cjkkaifont}
+\fi
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 2. Hyperlinks Settings %%
