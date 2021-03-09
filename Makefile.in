@@ -31,11 +31,9 @@ pdf: $(TEX_FILE)
 	asy $(TEX_FILE_NAME)-*.asy;\
 	lualatex ../$(TEX_FILE);\
 	bibtex $(TEX_FILE_NAME);\
-	lualatex ../$(TEX_FILE);\
 	makeindex $(TEX_FILE_NAME);\
-	lualatex ../$(TEX_FILE);\
 	makeglossaries $(TEX_FILE_NAME);\
-	lualatex ../$(TEX_FILE);
+	lualatex ../$(TEX_FILE)
 PHONY += pdf
 
 $(TEX_FILE):
