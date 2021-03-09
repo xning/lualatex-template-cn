@@ -1,11 +1,24 @@
+AC_DEFUN([MIN_AUTOCONF_VERSION], [2.62])
+AC_DEFUN([PROJECT_VERSION], [0.01])
+AC_DEFUN([PROJECT_DESCRIPTION],
+[LuaLaTeX Template for the Chinese])
+AC_DEFUN([PROJECT_EMAIL], [anzhou94@gmail.com])
+AC_DEFUN([PROJECT_NAME],
+[lualatex-template-cn])
+AC_DEFUN([PROJECT_URL],
+[https://github.com/xning/lualatex-template-for-Chinese])
+AC_DEFUN([PROJECT_COPYRIGHT],
+[The project is licensed under BSD])
+AC_DEFUN([PDF_KEYWORDS],
+[TeX, LaTeX, LuaTeX, LuaLaTeX, CTeX, Chinese, PDF, wqy, WenQuanYi])
+AC_DEFUN([PDF_SUBJECT],
+[LuaTex Template to produce PDF that support the Chinese])
+AC_DEFUN([PDF_FILE],
+[lualatex-template-cn.tex])
+
 dnl Ensure that we use a more modern autoconf.
 dnl We need autoconf >= 2.62 because of micro AC_PATH_PROGS_FEATURE_CHECK
 AC_PREREQ([2.62])
-
-dnl While it is useful to use 'autoscan' to create a configure.ac template,
-dnl we cannot do so here because we try autoconf to build PDF from LuaLaTeX.
-
-AC_DEFUN([PROJECT_VERSION], [2021-03-08])
 
 dnl Document Key Words
 AC_DEFUN([AC_MAKE_KEYWORDS],
@@ -55,11 +68,13 @@ AS_IF([test "[$]m4_toupper([$1])" = "failed"],
 AC_MSG_ERROR([could not find $1 command]))
 ])
 
-AC_INIT([LuaLaTeX Template for the Chinese],
-[0.0.1], [anzhou94@gmail.com],
-[lualatex-template-cn],
-[https://github.com/xning/lualatex-template-for-Chinese])
-AC_COPYRIGHT([The project is licensed under BSD.])
+AC_INIT(
+PROJECT_DESCRIPTION,
+PROJECT_VERSON,
+PROJECT_EMAIL,
+PROJECT_NAME,
+PROJECT_EMAIL)
+AC_COPYRIGHT(PROJECT_COPYRIGHT)
 AC_CONFIG_AUX_DIR([build-aux])
 AC_PROG_GREP
 AC_PROG_AWK
@@ -140,9 +155,10 @@ AC_SUBST([MAKE_DEBUG])
 AC_PROG_MAKE_SET
 AC_SUBST([SET_MAKE])
 
-AC_MAKE_KEYWORDS([TeX, LaTeX, LuaTeX, LuaLaTeX, CTeX, Chinese, PDF, wqy, WenQuanYi])
-AC_MAKE_SUBJECT([LuaTex Template to produce PDF that support the Chinese])
+AC_MAKE_KEYWORDS(PDF_KEYWORDS)
+AC_MAKE_SUBJECT(PDF_SUBJECT)
 
-AC_CONFIG_FILES([Makefile lualatex-template-cn.tex])
+AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([tests/trailer.test], [chmod u+x tests/trailer.test])
+AC_CONFIG_FILES(PDF_FILE)
 AC_OUTPUT
