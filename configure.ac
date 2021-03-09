@@ -15,6 +15,8 @@ AC_DEFUN([PDF_SUBJECT],
 [LuaTex Template to produce PDF that support the Chinese])
 AC_DEFUN([PDF_FILE],
 [lualatex-template-cn.tex])
+AC_DEFUN([PDF_AUTHOR], [直寻])
+AC_DEFUN([PDF_TITLE], [支持汉语生成PDF文档的{\LaTeX}模板---{\LuaLaTeX}版本])
 
 dnl Ensure that we use a more modern autoconf.
 dnl We need autoconf >= 2.62 because of micro AC_PATH_PROGS_FEATURE_CHECK
@@ -67,6 +69,7 @@ PROJECT_VERSON,
 PROJECT_BUG_REPORT,
 PROJECT_NAME,
 PROJECT_URL)
+
 AC_COPYRIGHT(PROJECT_COPYRIGHT)
 AC_CONFIG_AUX_DIR([build-aux])
 AC_PROG_GREP
@@ -76,6 +79,11 @@ AC_PROG_MKDIR_P
 AC_CHECK_PROGS([TAR], [gtar tar], [failed])
 AS_IF([test "$TAR" = "failed"],
 AC_MSG_ERROR([could not find tar or gtar command]))
+
+[PDF_AUTHOR]='PDF_AUTHOR'
+[PDF_TITLE]='PDF_TITLE'
+AC_SUBST([PDF_AUTHOR])
+AC_SUBST([PDF_TITLE])
 
 dnl We need one of md5sum, sha1sum, and sha512sum tools to build
 dnl a checksum file when prepare a distribution.

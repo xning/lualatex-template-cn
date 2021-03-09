@@ -17,9 +17,9 @@
 %%
 \documentclass{article}
 %%
-%%%%%%%%%%%%%%%%%%%%
-%% 0. Debug/Trace %%
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+%% 0. 调试、追踪 %%
+%%%%%%%%%%%%%%%%%%%
 %% If you need time to coffee, just uncomment the following line
 %% and traceon some lines. :)
 %\usepackage{trace}
@@ -27,16 +27,15 @@
 %% Follow rpmbuild style, we always try to give more building infos.
 \listfiles
 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 1. Chinses Supporting %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+%% 1. 汉语支持 %%
+%%%%%%%%%%%%%%%%%
 %% To support Chinese, you can use the package ctex package. And
 %% need add and set Chinese fonts.
 %% On UNIX platforms we need add Chinses fonts first, that's why we add
 %% nofonts option.
 %% It is obvious that only a few of free serif Chinses fonts.
 %%
-%% ctex will call xeCJK.
 \usepackage{metalogo} % Need the package for LuaTeX/LuaLaTeX logo.
 \usepackage{fancyhdr}
 %%
@@ -96,9 +95,9 @@
 %% This perhaps is lualatex or fontspec bug, I do not have enough time to
 %% study the truetype specifications.
 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 1.1 To Configure Fonts that You Like Here %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+%% 1.1 字体配置 %%
+%%%%%%%%%%%%%%%%%%
 %%
 %% It seems that we cannot check which fonts that we can use by
 %% XeTex itself, perhaps that's why I prefer LuaTeX to XeTeX.
@@ -136,9 +135,9 @@
 \newCJKfontfamily[kai]\kaiti{\cjkkaifont}
 
 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 2. Hyperlinks Settings %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+%% 2. 超链接 %%
+%%%%%%%%%%%%%%%
 %% Most of time, we just want a PDF, so hyperlinks among contents and to
 %% the Internet will be useful. While to support Chinses, to avoid
 %% encoding problems, it is better to enable hyperref with xecte
@@ -157,9 +156,9 @@
   pdfsubject={@PDF_SUBJECT@}
 }
 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 3. Content Tables Settings %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+%% 3. 目录 %%
+%%%%%%%%%%%%%
 %% The following package will add the content itself and reference to
 %% the content list.
 \usepackage{tocbibind}
@@ -167,36 +166,36 @@
 % \usepackage{tocloft} % Simpler than the titletoc
 % \usepackage{titletoc}
 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 4. Individually Compiling %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+%% 4. 独立编译 %%
+%%%%%%%%%%%%%%%%%
 %% While we plan to compile each, f.g., chapter individually, we need
 %% these chapters could reference to each other. So add the following
 %% package
 \usepackage{xr}
 %%
-%%%%%%%%%%%%%%%%%%%%%
-%% 5. Bibliography %%
-%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+%% 5. 参考文献 %%
+%%%%%%%%%%%%%%%%%
 \bibliographystyle{alpha}
 %%
-%%%%%%%%%%%%%%%%
-%% 5. Indexes %%
-%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+%% 5. 索引 %%
+%%%%%%%%%%%%%
 %\usepackage{imakeidx} % If need support multi-indxes uncomment this line.
 \usepackage{makeidx}
 \makeindex
 %%
-%%%%%%%%%%%%%%%%%
-%% 6. Glossary %%
-%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+%% 6. 术语 %%
+%%%%%%%%%%%%%
 %% We need some options to enable Glossary entry in the Contents.
 \usepackage[toc, section=section]{glossaries}
 \makeglossaries
 %%
-%%%%%%%%%%%%%%%%%%%%%%
-%% 6. Miscellaneous %%
-%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+%% 6. 杂项 %%
+%%%%%%%%%%%%%
 %% The package will give use a label to the last page.
 \usepackage{lastpage}
 \usepackage{color}
@@ -204,63 +203,78 @@
 \usepackage{graphicx}
 \usepackage{asymptote}
 \usepackage{animate}
+
+\title{@PDF_TITLE@}
+\author{@PDF_AUTHOR@}
+\date{\today}
+
 %%
-%%%%%%%%%%%%%
-%% 7. Main %%
-%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+%% 7. 正文部分 %%
+%%%%%%%%%%%%%%%%%
 \begin{document}
 \tableofcontents
 \listoffigures
 \listoftables
 %%
-\section{Why this template}
-Just like the first process, whose PID is 1, was created manually, then
-all the other processses, they fork from the first one, are children of
-that process. We tried the template the first one. Then we can fork the
-template, simple modify and create our need documents.\par
-We need the template support all the features that we need.
-\subsection{Chinese Support}
-It{\rq}s obvious that we need support the Chinese for so many people can
-speak and only can speak the Chinese.\marginpar{Do not you believe it?}\par
-Let{\rq}s try it.\par
+\section{为何需要模板？}
+正如Linux系统中第一个进程是手工创建而来，其他进程均由之复制因而也是其子进程类似。我们尝试
+创建一个模板。而后我们可以复制模板进而以之为基，修改、创建需要的文档。
+
+我们需要模板支持我们需要的全部功能。
+
+\subsection{汉语支持}
+明显我们需要支持汉语。我们之中英语困难者不乏其人，使用汉语的人其只能使用
+汉语的人又参如星河。\marginpar{信不信有你}
+
+我们且拭目以待。
+
 \begin{center}
 曾慮多情損梵行，\par
 入山又恐別傾城。\par
 世間安得雙全法，\par
 不負如來不負卿。\par
-\end{center}\par
-And another poem.\par
+\end{center}
+
+再来一首。
+
 \begin{center}
 桂靄桐陰坐舉觴，長安涎口盼重陽。\par
 眼前道路無經緯，皮裏春秋空黑黃。\par
 酒未敵腥還用菊，性防積冷定須姜。\par
 於今落釜成何益，月浦空餘禾黍香。\par
 \end{center}
-\subsection{Inter-references}
-Shut up and just do as what I said!
-\subsection{Bibliograhpy}
-Shut up and just do as what I said!
-\subsection{Index}
-Shut up and just do as what I said!
-\subsection{Glossary}
-Shut up and just do as what I said!
-\section{How to use this template}
-This section will need more time, are you sure to read it now?
-\subsection{Tools and fonts}
-We need \LuaLaTeX\footnote{\href{http://en.wikipedia.org/wiki/LuaTeX}{OK, we use the {\LuaLaTeX} tool.}} and
-the Chinese fonts\footnote{\href{http://www.freechinesefont.com/}{Free Chinese Font}}.
-\subsection{Try Inter-references}
-Let{\rq} try the feature, see \cite{leslie1994latex}.
-\subsection{Try indexes}
-Who is anzhou94{\index{anzhou94}}, why does he like mathmatics{\index{mathmatics}}?
-\subsection{Try glossaries}
+这里我们验证了简繁混排是可行的。后面会测试中英混排。\marginpar{其实还测试了用汉语注释的情况}
+\subsection{文中互引}
+貌似没有给出此项如何作。
+\subsection{参考文献}
+比着葫芦画飘即可。
+\subsection{索引}
+比着葫芦画飘即可。
+\subsection{术语}
+比着葫芦画飘即可。
+\section{如何使用此模板？}
+此模板运行需要不少工具。至少需要{\href{https://www.gnu.org/}{gnu}}的
+{\href{https://www.gnu.org/software/make/}{make}}和
+{\href{https://www.gnu.org/software/autoconf/autoconf.html}{Autotools}}。
+\marginpar{即使如此，字体部分也可能会造成大麻烦。在Debian
+或者其衍生版系统上尝试会较好。}
+\subsection{工具和字体}
+我们需要\LuaLaTeX\footnote{\href{http://luatex.org/}{
+{\LuaLaTeX}是目前更好的选择}}和中文字体\footnote{\href{http://www.freechinesefont.com/}{自由的中文字体让人满意的不多}}，
+还有给{\href{https://www.latex-project.org/}{\LaTeX}}增加了汉语支持的{\href{http://www.ctex.org/HomePage/主页}{{\CTeX}宏包}}。
+\subsection{引用参考文献}
+要进一步了解{\LaTeX}系统，请参考\cite{leslie1994latex}。
+\subsection{索引引用}
+谁是直寻{\index{直寻}}， 他对数学{\index{mathmatics}}情有独钟？
+\subsection{定义和引用术语}
 \newglossaryentry{redhat}{
-  name=redhat,
-  description={A famous open-source OS vendor}
+  name={Red Hat},
+  description={知名开源操作系统提供商}
   }
-The \gls{redhat} OS RHELs are powerful.
-\subsection{Try tables}
-Let{\rq}s try a table.
+\gls{redhat}的RHEL操作系统均是质量上乘之作。
+\subsection{创建表格}
+我们创建一个表格测试下。\marginpar{表格和图都会浮动，看能否找到它们}
 \begin{table}\centering
   \caption{Famous Editors}
 \begin{tabular}{|c|c|}\hline
@@ -269,14 +283,14 @@ Let{\rq}s try a table.
   Vi & Editors{\rq} God \\ \hline
 \end{tabular}
 \end{table}
-\subsection{Try pictures}
-OK, most of time you don{\rq}t use {\TeX} interactively, while we can.
+\subsection{嵌入和建立图片}
+大多时候我们不需要交互式的使用{\TeX}的产出，但是如果必要，我们可以。
 \begin{figure}\centering
 \includegraphics[scale=0.5]{@abs_srcdir@/pics/tex_inter.png}
 \caption{{\TeX} Interactive}
 \end{figure}
 \par
-Another picture.
+另一副由{\href{https://asymptote.sourceforge.io/}{asymptote}}生成。
 \begin{figure}\centering
 \begin{asy}
   real r = 0.8cm;
@@ -285,12 +299,27 @@ Another picture.
 \end{asy}
 \caption{Asymptote pic}
 \end{figure}
-\section{Known problems}
-\subsection{The hyperref not work when there{\rq}re some Chinese characters in the URL.}
-I do not know why, while I think this is not difficult problem.
+\section{下一步计划}
+如何格式美观的给出代码？
+\section{已知问题}
+\subsection{超链接不支持包含汉语的URL}
+最初使用{\XeLaTeX}时发现的问题，目前测试无此问题。
+\subsection{索引没有生成}
+奇也怪载，索引没有看到。
+
+问题已解。Makefile中执行创建索引的命令因为丢失了分号没有执行所致。
+\subsection{文中相互引用没有例子}
+貌似最初版本就缺失了这一块内容。
+\subsection{“术语”中文支持不完全}
+关键字和名称不能是汉语。
+\subsection{双引号处理有问题}
+''这句话两边的双引号有问题''。单引号也有类似问题。但是解决方案是有的：直接输入
+全角引号而非{\LaTeX}的引号表达式。
+\subsection{文档类型为“book”时排版有误}
+边栏提示位置错乱。需要进一步测试。
 \appendix
-\section{Try appendix}
-Shut up and do what I said!
+\section{附录}
+比着葫芦画飘即可。
 \bibliography{@abs_srcdir@/jabref}
 \printindex
 \printglossaries
