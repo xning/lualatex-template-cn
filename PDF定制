@@ -1,0 +1,8 @@
+AC_DEFUN([PDF_KEYWORDS],
+[TeX, LaTeX, LuaTeX, LuaLaTeX, CTeX, Chinese, PDF, wqy, WenQuanYi])
+AC_DEFUN([PDF_SUBJECT],
+[LuaTex Template to produce PDF that support the Chinese])
+AC_DEFUN([PDF_FILE],
+[lualatex-template-cn.tex])
+AC_DEFUN([PDF_AUTHOR], [直寻])
+AC_DEFUN([PDF_TITLE], [生成中文PDF文档的{\LaTeX}模板---{\LuaLaTeX}版本])
