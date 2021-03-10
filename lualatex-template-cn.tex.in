@@ -159,7 +159,7 @@
 %%%%%%%%%%%%%
 %% The following package will add the content itself and reference to
 %% the content list.
-\usepackage{tocbibind} # 把附录各项加入目录
+\usepackage{tocbibind} % 把附录各项加入目录
 %% You can configure contens style by one of the following packages.
 % \usepackage{tocloft} % Simpler than the titletoc
 % \usepackage{titletoc}
@@ -189,7 +189,7 @@
 %% 6. 术语 %%
 %%%%%%%%%%%%%
 %% We need some options to enable Glossary entry in the Contents.
-\usepackage[toc, section=section]{glossaries}
+\usepackage[toc, section=section]{glossaries} % hyper选项不可用
 \makeglossaries
 %%
 %%%%%%%%%%%%%
@@ -249,13 +249,13 @@
 
 这里我们验证了简繁混排是可行的。后面会测试中英混排。\marginpar{其实还测试了用汉语注释的情况}
 \subsection{文中互引}
-貌似没有给出此项如何作。
+貌似最初没有给出此项如何作。现在验证下，我们看下有关的已知问题记录\ref{known_issue_no_interref}。
 \subsection{参考文献}
-比着葫芦画飘即可。
+比着葫芦画飘即可\pageref{bibliography_loc}。
 \subsection{索引}
-比着葫芦画飘即可。
+比着葫芦画飘即可\pageref{index_loc}。
 \subsection{术语}
-比着葫芦画飘即可。
+比着葫芦画飘即可\pageref{glossaries_loc}。
 \section{如何使用此模板？}
 此模板运行需要不少工具。至少需要{\href{https://www.gnu.org/}{gnu}}的
 {\href{https://www.gnu.org/software/make/}{make}}和
@@ -303,7 +303,11 @@
 \caption{Asymptote pic}
 \end{figure}
 \section{下一步计划}
-如何格式美观的给出代码？
+\begin{itemize}
+\item 如何格式美观的给出代码？
+\item 有{\href{https://www.ctan.org/pkg/cweb-latex}{web-latex}}且是发行版的一部分，
+支持中文的文学编程，需要搞起来。
+\end{itemize}
 \section{已知问题}
 \subsection{超链接不支持包含汉语的URL}
 最初使用{\XeLaTeX}时发现的问题，目前测试无此问题。
@@ -312,7 +316,9 @@
 
 问题已解。Makefile中执行创建索引的命令因为丢失了分号没有执行所致。
 \subsection{文中相互引用没有例子}
-貌似最初版本就缺失了这一块内容。
+\label{known_issue_no_interref}貌似最初版本就缺失了这一块内容。
+
+这部分内容已经补充进来了。
 \subsection{“术语”中文支持不完全}
 关键字和名称不能是汉语。
 \subsection{双引号处理有问题}
@@ -325,7 +331,7 @@
 \appendix
 \section{附录}
 比着葫芦画飘即可。
-\bibliography{@abs_srcdir@/jabref}
-\printindex
-\printglossaries
+\bibliography{@abs_srcdir@/jabref}\label{bibliography_loc}
+\printindex\label{index_loc}
+\printglossaries\label{glossaries_loc}
 \end{document}
