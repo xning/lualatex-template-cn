@@ -38,7 +38,6 @@
 %% It is obvious that only a few of free serif Chinses fonts.
 %%
 \usepackage{metalogo} % Need the package for LuaTeX/LuaLaTeX logo.
-\usepackage{fancyhdr}
 %%
 \iftrue
 \usepackage[UTF8, fontset=none, scheme=chinese]{ctex}
@@ -55,7 +54,7 @@
 \setmathfont{Asana-Math.otf}
 %%
 
-\usepackage{fontspec}
+%\usepackage{fontspec} % CTeX自动调用之
 %% It is said that, on PC, to use sans serif fonts is better than
 %% to use sans fonts, so we do not need add AR PL UMing CN font
 %% if you are not desired.
@@ -143,8 +142,6 @@
 %% the Internet will be useful. While to support Chinses, to avoid
 %% encoding problems, it is better to enable hyperref with xecte
 \usepackage[unicode, pdfencoding=auto, backref]{hyperref}
-\usepackage{geometry}
-\geometry{screen}
 \hypersetup{
   colorlinks=true,
 %  bookmarks=true,
@@ -162,18 +159,19 @@
 %%%%%%%%%%%%%
 %% The following package will add the content itself and reference to
 %% the content list.
-\usepackage{tocbibind}
+\usepackage{tocbibind} # 把附录各项加入目录
 %% You can configure contens style by one of the following packages.
 % \usepackage{tocloft} % Simpler than the titletoc
 % \usepackage{titletoc}
 %%
 %%%%%%%%%%%%%%%%%
-%% 4. 独立编译 %%
+%% 4. 跨文档互引 %%
 %%%%%%%%%%%%%%%%%
-%% While we plan to compile each, f.g., chapter individually, we need
-%% these chapters could reference to each other. So add the following
-%% package
-\usepackage{xr}
+%% This package implements a system for eXternal References. If one document
+%% needs to refer to sections of another, say aaa.tex, then this package may be
+%% loaded in the main file, and the command \externaldocument{aaa} given
+%% in the preamble
+%\usepackage{xr} % 暂时没有需求
 %%
 %%%%%%%%%%%%%%%%%
 %% 5. 参考文献 %%
@@ -199,8 +197,11 @@
 %%%%%%%%%%%%%
 %% The package will give use a label to the last page.
 \usepackage{lastpage}
+
+\usepackage{fancyhdr} % 版式设置
+\usepackage{geometry} % 版式设置
+
 \usepackage{color}
-\usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{asymptote}
 \usepackage{animate}
