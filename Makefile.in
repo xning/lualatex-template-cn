@@ -1,3 +1,4 @@
+# @configure_input@
 @SET_MAKE@
 TEX_FILE_NAME = @PACKAGE_TARNAME@
 PDF_FILE = @PACKAGE_TARNAME@.pdf

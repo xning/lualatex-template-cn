@@ -16,7 +16,7 @@ AC_DEFUN([PDF_SUBJECT],
 AC_DEFUN([PDF_FILE],
 [lualatex-template-cn.tex])
 AC_DEFUN([PDF_AUTHOR], [直寻])
-AC_DEFUN([PDF_TITLE], [支持汉语生成PDF文档的{\LaTeX}模板---{\LuaLaTeX}版本])
+AC_DEFUN([PDF_TITLE], [生成中文PDF文档的{\LaTeX}模板---{\LuaLaTeX}版本])
 
 dnl Ensure that we use a more modern autoconf.
 dnl We need autoconf >= 2.62 because of micro AC_PATH_PROGS_FEATURE_CHECK

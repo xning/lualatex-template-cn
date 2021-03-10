@@ -1,4 +1,5 @@
 %Coding: utf8
+%% @configure_input@
 %%
 %% Author: anzhou94@gmail.com
 %% Date: Mon 08 Mar 2021 09:36:36 AM CST
@@ -150,8 +151,8 @@
   bookmarksopen=true,
 %  pdfpagemode=FullScreen,
   pdfstartview=Fit,
-  pdftitle={@PACKAGE_NAME@},
-  pdfauthor={@PACKAGE_BUGREPORT@},
+  pdftitle={@PDF_TITLE@},
+  pdfauthor={@PDF_AUTHOR@},
   pdfkeywords={@PDF_KEYWORDS@},
   pdfsubject={@PDF_SUBJECT@}
 }
@@ -244,6 +245,7 @@
 酒未敵腥還用菊，性防積冷定須姜。\par
 於今落釜成何益，月浦空餘禾黍香。\par
 \end{center}
+
 这里我们验证了简繁混排是可行的。后面会测试中英混排。\marginpar{其实还测试了用汉语注释的情况}
 \subsection{文中互引}
 貌似没有给出此项如何作。
@@ -317,6 +319,8 @@
 全角引号而非{\LaTeX}的引号表达式。
 \subsection{文档类型为“book”时排版有误}
 边栏提示位置错乱。需要进一步测试。
+
+解决方案是：不使用边栏；边栏位置都调整到右边；调整页面设置。
 \appendix
 \section{附录}
 比着葫芦画飘即可。

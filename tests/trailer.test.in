@@ -1,5 +1,7 @@
 #!/usr/bin/env @PYTHON@
 """
+@configure_input@
+
 No time to design these tests. While perhaps metaprogramming is
 required, or use autoconf m4 macros to do something to produce
 the tests. Anywhile
@@ -96,7 +98,7 @@ class TrailerTest(object):
 
         keys = pdf_info_obj.keys()
         if "/Author" in keys:
-            if pdf_info_obj.get("/Author") == "@PACKAGE_BUGREPORT@":
+            if pdf_info_obj.get("/Author") == "@PDF_AUTHOR@":
                 print("ok {seq:d} - Successful to verify the PDF file author(s)".format(seq = seq))
             else:
                 fail = True
@@ -105,7 +107,7 @@ class TrailerTest(object):
             seq += 1
 
         if "/Title" in keys:
-            if pdf_info_obj.get("/Title") == "@PACKAGE_NAME@":
+            if pdf_info_obj.get("/Title") == "@PDF_TITLE@":
                 print("ok {seq:d} - Successful to verify the PDF file title".format(seq = seq))
             else:
                 fail = True
