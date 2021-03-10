@@ -1,0 +1,7 @@
+细节请参考知乎：[git显示中文和解决中文乱码](https://zhuanlan.zhihu.com/p/133706032)
+
+在中文字体安装到位，本地化设置为UTF8时，如下设置既可以解决问题：
+
+```bash
+git config --global core.quotepath false
+```
