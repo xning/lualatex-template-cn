@@ -20,7 +20,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%
 %% 0. 调试、追踪 %%
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
 %% If you need time to coffee, just uncomment the following line
 %% and traceon some lines. :)
 %\usepackage{trace}
@@ -38,7 +38,9 @@
 %% It is obvious that only a few of free serif Chinses fonts.
 %%
 \usepackage{metalogo} % Need the package for LuaTeX/LuaLaTeX logo.
-%%
+%%%%%%%%%%%%%%%%%%
+%% 1.1 引入CTeX %%
+%%%%%%%%%%%%%%%%%%
 \iftrue
 \usepackage[UTF8, fontset=none, scheme=chinese]{ctex}
 \else
@@ -96,7 +98,7 @@
 %% study the truetype specifications.
 %%
 %%%%%%%%%%%%%%%%%%
-%% 1.1 字体配置 %%
+%% 1.2 字体配置 %%
 %%%%%%%%%%%%%%%%%%
 %%
 %% It seems that we cannot check which fonts that we can use by
@@ -164,9 +166,9 @@
 % \usepackage{tocloft} % Simpler than the titletoc
 % \usepackage{titletoc}
 %%
-%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
 %% 4. 跨文档互引 %%
-%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
 %% This package implements a system for eXternal References. If one document
 %% needs to refer to sections of another, say aaa.tex, then this package may be
 %% loaded in the main file, and the command \externaldocument{aaa} given
@@ -192,28 +194,40 @@
 \usepackage[toc, section=section]{glossaries} % hyper选项不可用
 \makeglossaries
 %%
-%%%%%%%%%%%%%
-%% 6. 杂项 %%
-%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+%% 6. 版式设置 %%
+%%%%%%%%%%%%%%%%%
 %% The package will give use a label to the last page.
 \usepackage{lastpage}
-
 \usepackage{fancyhdr} % 版式设置
 \usepackage{geometry} % 版式设置
 
+%%%%%%%%%%%%%
+%% 7. 图形 %%
+%%%%%%%%%%%%%
 \usepackage{color}
 \usepackage{graphicx}
 \usepackage{asymptote}
 \usepackage{animate}
 
+%%%%%%%%%%%%%%%%%%%%%%%
+%% 8. 嵌入和高亮源码 %%
+%%%%%%%%%%%%%%%%%%%%%%%
+%% algorithmicx支持伪码、C和Pacal。可以定义新语言。
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+%\usepackage{algorithmic}
+%% usepackage{minted} % 借助Pygments支持多种语言。需要给lualatex增加选项--shell-escape
+
+
+%%%%%%%%%%%%%%%%%
+%% 9. 正文部分 %%
+%%%%%%%%%%%%%%%%%
+
 \title{@PDF_TITLE@}
 \author{@PDF_AUTHOR@}
 \date{\today}
 
-%%
-%%%%%%%%%%%%%%%%%
-%% 7. 正文部分 %%
-%%%%%%%%%%%%%%%%%
 \begin{document}
 \tableofcontents
 \listoffigures
@@ -292,7 +306,8 @@
 \includegraphics[scale=0.5]{@abs_srcdir@/pics/tex_inter.png}
 \caption{{\TeX} Interactive}
 \end{figure}
-\par
+
+
 另一副由{\href{https://asymptote.sourceforge.io/}{asymptote}}生成。
 \begin{figure}\centering
 \begin{asy}
@@ -302,6 +317,27 @@
 \end{asy}
 \caption{Asymptote pic}
 \end{figure}
+\section{高亮源代码}
+源代码（包括伪码）已经是记录和交流的常见工具。测试下高亮代码。
+\subsection{\href{https://www.ctan.org/pkg/algorithmicx}{algorithmicx}}
+这里我们测试的是伪码。{\href{https://www.ctan.org/pkg/algorithmicx}{algorithmicx}}
+依赖{\href{https://www.ctan.org/pkg/algorithms}{algorithms bundle}}
+提供的algorithm和algorithmic环境。前者是浮动的。
+\begin{algorithm}
+\caption{Euclid’s algorithm}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+\State $r\gets a\bmod b$
+\While{$r\not=0$}\Comment{We have the answer if r is 0}
+\State $a\gets b$
+\State $b\gets r$
+\State $r\gets a\bmod b$
+\EndWhile\label{euclidendwhile}
+\State \textbf{return} $b$\Comment{The gcd is b}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
 \section{下一步计划}
 \begin{itemize}
 \item 如何格式美观的给出代码？
