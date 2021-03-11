@@ -123,6 +123,7 @@ FAIL_IF_TOOL_NOT_FOUND([lualatex])
 FAIL_IF_TOOL_NOT_FOUND([bibtex])
 FAIL_IF_TOOL_NOT_FOUND([makeglossaries])
 FAIL_IF_TOOL_NOT_FOUND([fc-list])
+FAIL_IF_TOOL_NOT_FOUND([xindy])
 
 dnl Need a smart solution for fonts checking and selecting.
 AC_MSG_NOTICE([the Chinese fonts])

@@ -32,7 +32,7 @@ pdf: $(TEX_FILE)
 	asy $(TEX_FILE_NAME)-*.asy;\
 	lualatex ../$(TEX_FILE);\
 	bibtex $(TEX_FILE_NAME);\
-	makeindex $(TEX_FILE_NAME);\
+	xindy $(TEX_FILE_NAME);\
 	makeglossaries $(TEX_FILE_NAME);\
 	lualatex ../$(TEX_FILE);\
 	lualatex ../$(TEX_FILE) # 连续两次编译，确保交叉编译处理完毕

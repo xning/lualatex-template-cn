@@ -191,7 +191,7 @@
 %% 6. 术语 %%
 %%%%%%%%%%%%%
 %% We need some options to enable Glossary entry in the Contents.
-\usepackage[toc, section=section]{glossaries} % hyper选项不可用
+\usepackage[toc, section, xindy]{glossaries} % hyper选项不可用
 \makeglossaries
 %%
 %%%%%%%%%%%%%%%%%
@@ -215,10 +215,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%
 %% algorithmicx支持伪码、C和Pacal。可以定义新语言。
 \usepackage{algpseudocode}
-\usepackage{algorithm}
+\usepackage{algorithm} % 借助之algorithmicx可以放置到适当环境中
 %\usepackage{algorithmic}
 %% usepackage{minted} % 借助Pygments支持多种语言。需要给lualatex增加选项--shell-escape
-
+\usepackage{listings} % 预定义了多种语言
+\usepackage{tcolorbox}
+\tcbuselibrary{listings}
 
 %%%%%%%%%%%%%%%%%
 %% 9. 正文部分 %%
@@ -285,11 +287,17 @@
 \subsection{索引引用}
 谁是直寻{\index{直寻}}， 他对数学{\index{mathmatics}}情有独钟？
 \subsection{定义和引用术语}
-\newglossaryentry{redhat}{
-  name={Red Hat},
+\newglossaryentry{红帽}{
+  name={红帽},
   description={知名开源操作系统提供商}
   }
-\gls{redhat}的RHEL操作系统均是质量上乘之作。
+  \newglossaryentry{RHEL}{
+  name={RHEL},
+  description={Red Hat Enterprise Linux operating system},
+  }
+\gls{红帽}的\gls{RHEL}操作系统均是质量上乘之作。原来\gls{RHEL}不是免费的，近期\gls{红帽}宣布
+{\href{https://www.redhat.com/en/blog/new-year-new-red-hat-enterprise-linux-programs-easier-ways-access-rhel}
+{有免费条款}}。
 \subsection{创建表格}
 我们创建一个表格测试下。\marginpar{表格和图都会浮动，看能否找到它们}
 \begin{table}\centering
@@ -306,7 +314,6 @@
 \includegraphics[scale=0.5]{@abs_srcdir@/pics/tex_inter.png}
 \caption{{\TeX} Interactive}
 \end{figure}
-
 
 另一副由{\href{https://asymptote.sourceforge.io/}{asymptote}}生成。
 \begin{figure}\centering
@@ -357,17 +364,19 @@
 这部分内容已经补充进来了。
 \subsection{“术语”中文支持不完全}
 关键字和名称不能是汉语。
+
+关键字和名称不支持汉语情况已经解决了。makeindex程序硬编码了只能处理Latin符号，
+代之以xindy工具即可。但是目录名称还是英语。
 \subsection{双引号处理有问题}
 ''这句话两边的双引号有问题''。单引号也有类似问题。但是解决方案是有的：直接输入
 全角引号而非{\LaTeX}的引号表达式。
 \subsection{文档类型为“book”时排版有误}
 边栏提示位置错乱。需要进一步测试。
 
-解决方案是：不使用边栏；边栏位置都调整到右边；调整页面设置。
+解决方案有四种：不使用边栏；不使用book类；边栏位置都调整到右边；调整页面设置。调整页面
+设置是方向。
 \appendix
-\section{附录}
-比着葫芦画飘即可。
-\bibliography{@abs_srcdir@/jabref}\label{bibliography_loc}
-\printindex\label{index_loc}
-\printglossaries\label{glossaries_loc}
+\label{bibliography_loc}\bibliography{@abs_srcdir@/jabref}
+\label{index_loc}\printindex
+\label{glossaries_loc}\printglossaries % 选项无效：[toctitle={术语表}]
 \end{document}
