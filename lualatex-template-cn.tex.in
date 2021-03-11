@@ -231,6 +231,7 @@
 \date{\today}
 
 \begin{document}
+\maketitle
 \tableofcontents
 \listoffigures
 \listoftables
