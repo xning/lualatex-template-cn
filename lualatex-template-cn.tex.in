@@ -137,9 +137,130 @@
 \newCJKfontfamily[kai]\kaiti{\cjkkaifont}
 
 %%
+%%%%%%%%%%%%%
+%% 2. 目录 %%
+%%%%%%%%%%%%%
+%%
+%% The following package will add the content itself and reference to
+%% the content list.
+\usepackage{tocbibind} % 把附录各项加入目录
+%% You can configure contens style by one of the following packages.
+% \usepackage{tocloft} % Simpler than the titletoc
+% \usepackage{titletoc}
+%%
+%%%%%%%%%%%%%%%%%%%
+%% 3. 跨文档互引 %%
+%%%%%%%%%%%%%%%%%%%
+%%
+%% This package implements a system for eXternal References. If one document
+%% needs to refer to sections of another, say aaa.tex, then this package may be
+%% loaded in the main file, and the command \externaldocument{aaa} given
+%% in the preamble
+%\usepackage{xr} % 暂时没有需求
+%%
+%%%%%%%%%%%%%%%%%
+%% 4. 参考文献 %%
+%%%%%%%%%%%%%%%%%
+%%
+\bibliographystyle{alpha}
+%%
+%%%%%%%%%%%%%
+%% 5. 索引 %%
+%%%%%%%%%%%%%
+%%
+%\usepackage{imakeidx} % If need support multi-indxes uncomment this line.
+\usepackage{makeidx}
+\makeindex
+%%
+%%%%%%%%%%%%%
+%% 6. 术语 %%
+%%%%%%%%%%%%%
+%%
+%% We need some options to enable Glossary entry in the Contents.
+\usepackage[toc, section, xindy]{glossaries} % hyper选项不可用
+\makeglossaries
+%%
+%%%%%%%%%%%%%%%%%
+%% 7. 版式设置 %%
+%%%%%%%%%%%%%%%%%
+%%
+%% The package will give use a label to the last page.
+\usepackage{lastpage}
+\usepackage{fancyhdr} % 版式设置
+\usepackage{geometry} % 版式设置
+%%
+%%%%%%%%%%%%%
+%% 8. 图形 %%
+%%%%%%%%%%%%%
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{asymptote}
+\usepackage{animate}
+%%
+%%%%%%%%%%%%%%%%%%%%%%%
+%% 9. 嵌入和高亮源码 %%
+%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% algorithmicx支持伪码、C和Pacal。可以定义新语言。
+\usepackage{algpseudocode}
+\usepackage{algorithm} % 借助之algorithmicx可以放置到适当环境中
+%\usepackage{algorithmic}
+%% usepackage{minted} % 借助Pygments支持多种语言。需要给lualatex增加选项--shell-escape
+\usepackage{listings} % 预定义了多种语言
+\usepackage{tcolorbox}
+\tcbuselibrary{listings}
+%%
+%%%%%%%%%%%%%%%%%%%%
+%% 10. 增强型宏包 %%
+%%%%%%%%%%%%%%%%%%%%
+%\usepackage{ulem} % 下划线
+\usepackage{textcomp} % 欧元符号
+% 声调、音标
+%\usepackage{tioa}
+%\usepackage{numprint}
+%\usepackage{siunitx}
+%%\usepackage{hologo} % TeX家族标记。前面引入的metalogo也有类似功能
+\usepackage{nameref} % 另一个提供引用功能的宏包
+%\usepackage{footmisc} % 脚注增强
+%\usepackage{endnotes} % 尾注
+\usepackage{natbib} % 另一个提供参考文献功能的宏包
+%\usepackage{titletoc} % 目录定制
+%\usepackage{wrapfig} % 图文混排
+% 表格
+\usepackage{longtable}
+%\usepackage{supertabular}
+%\usepackage{tabu}
+%\usepackage{multirow}
+\usepackage{array}
+%\usepackage{makecell}
+%\usepackage{diagbox}
+\usepackage{dcolumn}
+% 抄录
+\usepackage{verbatim}
+\usepackage{fancyvrb}
+%\usepackage{shortverb}
+% 箱子
+\usepackage{xcolor}
+%%\usepackage{tcolorbox} % 上面已经加载
+% 缩进
+%\usepackage{enumitem}
+%\usepackage{changepage}
+%\usepackage{titletoc} % 自定义章节
+\usepackage{booktabs} % 三线表。
+\usepackage{colortbl} % 彩色表格
+\usepackage{subcaption} % 子图表
+\usepackage{lineno} % 显示行号
+% 文档级命令接口，比LaTeX更为方便。建议通过上面引入的tcolorbox使用之。
+%%\usepackage{xparse}
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 建议其他宏包都应在hyperref之前加载以避免干扰 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
 %%%%%%%%%%%%%%%
-%% 2. 超链接 %%
+%% 11. 超链接 %%
 %%%%%%%%%%%%%%%
+%%
 %% Most of time, we just want a PDF, so hyperlinks among contents and to
 %% the Internet will be useful. While to support Chinses, to avoid
 %% encoding problems, it is better to enable hyperref with xecte
@@ -156,76 +277,10 @@
   pdfsubject={@PDF_SUBJECT@}
 }
 %%
-%%%%%%%%%%%%%
-%% 3. 目录 %%
-%%%%%%%%%%%%%
-%% The following package will add the content itself and reference to
-%% the content list.
-\usepackage{tocbibind} % 把附录各项加入目录
-%% You can configure contens style by one of the following packages.
-% \usepackage{tocloft} % Simpler than the titletoc
-% \usepackage{titletoc}
+%%%%%%%%%%%%%%%%%
+%% 12. 正文部分 %%
+%%%%%%%%%%%%%%%%%
 %%
-%%%%%%%%%%%%%%%%%%%
-%% 4. 跨文档互引 %%
-%%%%%%%%%%%%%%%%%%%
-%% This package implements a system for eXternal References. If one document
-%% needs to refer to sections of another, say aaa.tex, then this package may be
-%% loaded in the main file, and the command \externaldocument{aaa} given
-%% in the preamble
-%\usepackage{xr} % 暂时没有需求
-%%
-%%%%%%%%%%%%%%%%%
-%% 5. 参考文献 %%
-%%%%%%%%%%%%%%%%%
-\bibliographystyle{alpha}
-%%
-%%%%%%%%%%%%%
-%% 5. 索引 %%
-%%%%%%%%%%%%%
-%\usepackage{imakeidx} % If need support multi-indxes uncomment this line.
-\usepackage{makeidx}
-\makeindex
-%%
-%%%%%%%%%%%%%
-%% 6. 术语 %%
-%%%%%%%%%%%%%
-%% We need some options to enable Glossary entry in the Contents.
-\usepackage[toc, section, xindy]{glossaries} % hyper选项不可用
-\makeglossaries
-%%
-%%%%%%%%%%%%%%%%%
-%% 6. 版式设置 %%
-%%%%%%%%%%%%%%%%%
-%% The package will give use a label to the last page.
-\usepackage{lastpage}
-\usepackage{fancyhdr} % 版式设置
-\usepackage{geometry} % 版式设置
-
-%%%%%%%%%%%%%
-%% 7. 图形 %%
-%%%%%%%%%%%%%
-\usepackage{color}
-\usepackage{graphicx}
-\usepackage{asymptote}
-\usepackage{animate}
-
-%%%%%%%%%%%%%%%%%%%%%%%
-%% 8. 嵌入和高亮源码 %%
-%%%%%%%%%%%%%%%%%%%%%%%
-%% algorithmicx支持伪码、C和Pacal。可以定义新语言。
-\usepackage{algpseudocode}
-\usepackage{algorithm} % 借助之algorithmicx可以放置到适当环境中
-%\usepackage{algorithmic}
-%% usepackage{minted} % 借助Pygments支持多种语言。需要给lualatex增加选项--shell-escape
-\usepackage{listings} % 预定义了多种语言
-\usepackage{tcolorbox}
-\tcbuselibrary{listings}
-
-%%%%%%%%%%%%%%%%%
-%% 9. 正文部分 %%
-%%%%%%%%%%%%%%%%%
-
 \title{@PDF_TITLE@}
 \author{@PDF_AUTHOR@}
 \date{\today}
@@ -300,15 +355,36 @@
 {\href{https://www.redhat.com/en/blog/new-year-new-red-hat-enterprise-linux-programs-easier-ways-access-rhel}
 {有免费条款}}。
 \subsection{创建表格}
-我们创建一个表格测试下。\marginpar{表格和图都会浮动，看能否找到它们}
+我们创建表格测试下。\marginpar{表格和图都会浮动，看能否找到它们}
 \begin{table}\centering
-  \caption{Famous Editors}
+  \caption{众所周知的文本编辑器}
 \begin{tabular}{|c|c|}\hline
   Name & Description \\ \hline
-  Emacs & God{\rq}s Editior \\ \hline
-  Vi & Editors{\rq} God \\ \hline
+  Emacs & 神的编辑器 \\ \hline
+  Vi & 编辑器之神 \\ \hline
 \end{tabular}
 \end{table}
+
+\begin{table}\centering
+  \caption{原始{\TeX}使用的单位}
+  \begin{tabular}{|r|c|l|}\hline
+  简称 & 名称 & 定义 \\ \hline
+pt & point & {欧美印刷届常用基本单位} \\ \hline
+pc & pica & {1 pc = 12 pt} \\ \hline
+in & inch & {1 in = 72:27 pt} \\ \hline
+bp & big point & {72 bp = 1 in} \\ \hline
+cm & centimeter & {2.54 cm = 1 in} \\ \hline
+mm & millimeter & {10 mm = 1 cm} \\ \hline
+dd & didot point & {1157 dd = 1238 pt} \\ \hline
+cc & cicero & {1 cc = 12 dd} \\ \hline
+sp & scaled point & {65536 sp = 1 pt} \\ \hline
+em & 当前字体的一个“quad”的宽度 & {相对单位} \\ \hline
+ex & 当前字体的“x-height" & {相对单位} \\ \hline
+\end{tabular}
+\end{table}
+在过去, “em”是‘M’的宽度， 但是现在不是了；em 是直接来自字体的任意单位，ex 也是。
+对Computer Modern字体，em破折号的宽度是一个em, 每个数字0到9的宽度是半个
+em，小写‘x’的高度是一个ex；但是不是对所有字体都这样。
 \subsection{嵌入和建立图片}
 大多时候我们不需要交互式的使用{\TeX}的产出，但是如果必要，我们可以。
 \begin{figure}\centering
