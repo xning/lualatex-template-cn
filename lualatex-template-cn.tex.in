@@ -12,6 +12,12 @@
 %% The tmeplate is a demo while it works well.  So we can use Lua
 %% in TeX to extend TeX.
 %%
+%%
+%% 来自TeX的追踪控制系列
+\tracingmacros=1
+\tracingcommands=1 % 设置为2会显示执行命令的条件等更多信息
+%\tracingonline=1 % 追踪结果终端显示
+%%
 %% Most of the following packages need compile the input tex files
 %% more than once, because some auxiliary tools need auxiliary files
 %% that produced after the first compiling.
@@ -369,7 +375,7 @@
   \caption{原始{\TeX}使用的单位}
   \begin{tabular}{|r|c|l|}\hline
   简称 & 名称 & 定义 \\ \hline
-pt & point & {欧美印刷届常用基本单位} \\ \hline
+pt & point & {欧美印刷领域常用基本单位} \\ \hline
 pc & pica & {1 pc = 12 pt} \\ \hline
 in & inch & {1 in = 72:27 pt} \\ \hline
 bp & big point & {72 bp = 1 in} \\ \hline
@@ -385,6 +391,24 @@ ex & 当前字体的“x-height" & {相对单位} \\ \hline
 在过去, “em”是‘M’的宽度， 但是现在不是了；em 是直接来自字体的任意单位，ex 也是。
 对Computer Modern字体，em破折号的宽度是一个em, 每个数字0到9的宽度是半个
 em，小写‘x’的高度是一个ex；但是不是对所有字体都这样。
+
+{\TeX}的模式：
+\begin{table}\centering
+  \caption{{\TeX}的模式}
+  \begin{tabular}{|l|r|}\hline
+名称 & 说明 \\ \hline
+垂直模式 & 构建主垂直列, 输出的页面源于此 \\ \hline
+内部垂直模式 & 构建vbox的垂直列 \\ \hline
+水平模式 & 构建段落的水平列 \\ \hline
+受限水平模式 & 构建hbox的水平列 \\ \hline
+数学模式 & 构建数学公式, 并放在水平列中 \\ \hline
+列表数学模式 & 构建数学公式, 并暂时中断当前段, 单独放在一行上 \\ \hline
+\end{tabular}
+\end{table}
+
+{\TeX}读入时的状态只有三种：新行（N）、行中（M）和跳过（S）。
+
+
 \subsection{嵌入和建立图片}
 大多时候我们不需要交互式的使用{\TeX}的产出，但是如果必要，我们可以。
 \begin{figure}\centering
