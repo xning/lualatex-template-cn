@@ -12,11 +12,15 @@
 %% The tmeplate is a demo while it works well.  So we can use Lua
 %% in TeX to extend TeX.
 %%
-%%
-%% 来自TeX的追踪控制系列
-\tracingmacros=1
-\tracingcommands=1 % 设置为2会显示执行命令的条件等更多信息
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% -1. TeX提供的、与追踪功能有关的控制系列 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 打开会延迟构建速度
+%\tracingall % 打开全部追踪能力
+%\tracingmacros=1
+%\tracingcommands=1 % 设置为2会显示执行命令的条件等更多信息
 %\tracingonline=1 % 追踪结果终端显示
+%\showlists % 把TeX当前正在运行的内容显示出来
 %%
 %% Most of the following packages need compile the input tex files
 %% more than once, because some auxiliary tools need auxiliary files
@@ -406,8 +410,30 @@ em，小写‘x’的高度是一个ex；但是不是对所有字体都这样。
 \end{tabular}
 \end{table}
 
-{\TeX}读入时的状态只有三种：新行（N）、行中（M）和跳过（S）。
+\begin{table}\centering
+  \caption{{\TeX}的字符编码}
+  \begin{tabular}{|r|c|l|}\hline
+类 & 意义 & 对应字符 \\ \hline
+0 & 转义符 & {$\backslash$} \\ \hline
+1 & 组开始 & {\{} \\ \hline
+2 & 组结束 & {\}} \\ \hline
+3 & 数学环境 & \$ \\ \hline
+4 & 表格对齐 & \& \\ \hline
+5 & 换行 & <return>  \\ \hline
+6 & 参数 & \# \\ \hline
+7 & 上标 & \char`\^ \\ \hline
+8 & 下标 & \_ \\ \hline
+9 & 可忽略的字符 & <null> \\ \hline
+10 & 空格 & `` '' \\ \hline
+11 & 字母 & A, \dots, Z和a, \dots, z \\ \hline
+12 & 其它字符 & 不在上下文的其它字符 \\ \hline
+13 & 活动符 & \char`\~ \\ \hline
+14 & 注释符 & \% \\ \hline
+15 & 无用符 & <delete> \\ \hline
+\end{tabular}
+\end{table}
 
+{\TeX}读入时的状态只有三种：新行（N）、行中（M）和跳过（S）。
 
 \subsection{嵌入和建立图片}
 大多时候我们不需要交互式的使用{\TeX}的产出，但是如果必要，我们可以。
