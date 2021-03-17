@@ -20,13 +20,13 @@
 %\tracingmacros=1
 %\tracingcommands=1 % 设置为2会显示执行命令的条件等更多信息
 %\tracingonline=1 % 追踪结果终端显示
-%\showlists % 把TeX当前正在运行的内容显示出来
+%\showlists % 显示当前页面和备选内容
 %%
 %% Most of the following packages need compile the input tex files
 %% more than once, because some auxiliary tools need auxiliary files
 %% that produced after the first compiling.
 %%
-\documentclass{article}
+\documentclass{book}
 %%
 %%%%%%%%%%%%%%%%%%%
 %% 0. 调试、追踪 %%
@@ -287,8 +287,13 @@
   pdfsubject={@PDF_SUBJECT@}
 }
 %%
+%%%%%%%%%%%%%%%%%%%%%%
+%% 12. 调整边栏宽度 %%
+%%%%%%%%%%%%%%%%%%%%%%
+\marginparwidth=100pt
+%%
 %%%%%%%%%%%%%%%%%
-%% 12. 正文部分 %%
+%% 13. 正文部分 %%
 %%%%%%%%%%%%%%%%%
 %%
 \title{@PDF_TITLE@}
@@ -301,6 +306,12 @@
 \listoffigures
 \listoftables
 %%
+%%%%%%%%%%%%%%%%%%%%%%
+%% 14. 加载独立章节 %%
+%%%%%%%%%%%%%%%%%%%%%%
+%%
+%\include{chapter1}
+%
 \section{为何需要模板？}
 正如Linux系统中第一个进程是手工创建而来，其他进程均由之复制因而也是其子进程类似。我们尝试
 创建一个模板。而后我们可以复制模板进而以之为基，修改、创建需要的文档。
@@ -502,6 +513,8 @@ em，小写‘x’的高度是一个ex；但是不是对所有字体都这样。
 
 解决方案有四种：不使用边栏；不使用book类；边栏位置都调整到右边；调整页面设置。调整页面
 设置是方向。
+
+在导言区调整边栏宽度即可。比如：\textbackslash marginparwidth 100pt \% 默认是106pt。
 \appendix
 \label{bibliography_loc}\bibliography{@abs_srcdir@/jabref}
 \label{index_loc}\printindex
