@@ -126,10 +126,19 @@ FAIL_IF_TOOL_NOT_FOUND([fc-list])
 FAIL_IF_TOOL_NOT_FOUND([xindy])
 
 dnl Need a smart solution for fonts checking and selecting.
+dnl 1. wqy zen hei sharp using bitmap for 11-16px;using Zen Hei for other
+dnl font size
+dnl 2. wqy micro hei & micro hei mono derived from the Driod Sans
+dnl 3. unifont copied CJK from wqy unibit, that's mono font
+dnl 4. no fang song font
 AC_MSG_NOTICE([the Chinese fonts])
+dnl open source Chinses fonts:
+dnl https://www.zhihu.com/question/19727859/answer/54550265
+dnl Some fonts of Founder corp. are free.
 sansfonts="WenQuanYi Zen Hei:WenQuanYi Micro Hei:Droid Sans Fallback"
-seriffonts="AR PL UMing CN:WenQuanYi Zen Hei Sharp"
+seriffonts="AR PL UMing CN"
 monofonts="WenQuanYi Zen Hei Mono:WenQuanYi Micro Hei Mono:unifont"
+dnl AR PL UKai HK:AR PL UKai TW:AR PL KaitiM Big5
 kaisufonts="AR PL UKai CN"
 SEARCH_AVAILABLE_FONT([sans])
 SEARCH_AVAILABLE_FONT([serif])

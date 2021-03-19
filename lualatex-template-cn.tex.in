@@ -67,6 +67,7 @@
 %%
 
 %\usepackage{fontspec} % CTeX自动调用之
+%% CTeX使用了不止fontspec宏包，且对部分宏包作了剪裁。比如luatexja
 %% It is said that, on PC, to use sans serif fonts is better than
 %% to use sans fonts, so we do not need add AR PL UMing CN font
 %% if you are not desired.
@@ -127,6 +128,15 @@
 %% Kaishu fonts:
 %% AR PL UKai CN
 %%
+%% 篆书：又称篆文、篆体，是古老的汉书字体，篆书指隶书之前的书体，又指大篆和小篆
+%% 隶书：汉字中常见的一种庄重字体，书写效果略微宽扁，横画长而直画短，讲究
+%%“蚕头燕尾”，“一波三折”。
+%% 楷书：亦称今隶、真书、正楷、楷体或正书，是汉字书法体系中常见的一种手写字体风格。
+%% 其字形较为平直正方，去除隶书笔画尾部的挑法及蚕头燕尾的笔法，不写成扁形，结构
+%% 不合“六书”原则。
+%% 其他书写体还有：行书、草书。
+%% 宋体/仿宋体：类衬线字体
+%% 黑体：类无衬线体
 %% Use your fonts to replace the followings
 \newcommand\cjkseriffont{@SERIFFONT@}
 \newcommand\cjksansfont{@SANSFONT@}
@@ -322,7 +332,14 @@
 明显我们需要支持汉语。我们之中英语困难者不乏其人，使用汉语的人其只能使用
 汉语的人又参如星河。\marginpar{信不信有你}
 
-我们且拭目以待。
+在Linux等开源系统上，黑体、宋体等汉字字体比较常见。但是楷、隶、行、草等汉字字体难寻，尤其是
+后三者。好在此模板在Windows和Mac上也能用，只是模板生成过程需要Linux系统。
+
+推荐使用文泉驿和思源字体，另外{\href{https://www.foundertype.com}{方正}}也提供了
+5套免费字体，但是不能商用。
+\subsection{验证}
+
+我们且验证汉语支持配置完毕了。
 
 \begin{center}
 曾慮多情損梵行，\par
