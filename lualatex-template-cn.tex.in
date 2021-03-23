@@ -499,6 +499,15 @@ em，小写‘x’的高度是一个ex；但是不是对所有字体都这样。
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
+\section{数学内容}
+
+展示下数学字体：
+
+\begin{eqnarray}
+ x & = & 17y \\
+ y & > & a + b + c + d + e + f + g + h + i + j + \nonumber \\
+   &   & k + 1 + m + n +o + p
+\end{eqnarray}
 
 \section{下一步计划}
 \begin{itemize}
