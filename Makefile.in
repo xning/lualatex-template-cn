@@ -50,8 +50,9 @@ configure Makefile.in: configure.ac
 PHONY += newmakeifle
 
 clean:
-	@MAKE_DEBUG@[ -d $(BUILD_DIR) ] && rm -rf $(BUILD_DIR) || :;\
-	cd $(BUILD_DIR)/../ && rm -rf $(CLEAN_FILES)
+	@MAKE_DEBUG@[ -d $(BUILD_DIR) ] && rm -rf $(BUILD_DIR);\
+        cd $(SOURCE_DIR) && rm -rf $(CLEAN_FILES)
+
 PHONY += clean
 
 install:
